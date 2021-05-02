@@ -3,3 +3,5 @@ trait Log {
     fn read();
 }
 
+mod simple;
+
