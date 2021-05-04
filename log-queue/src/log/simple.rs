@@ -14,7 +14,15 @@ impl SimpleLog {
                 unreachable!("{:?}", err);
             }
         };
-        for dir in dirs.iter() {
+        let mut names = Vec::new();
+        for dir in dirs {
+            let dir = dir.unwrap();
+            names.push(dir.file_name());
+        }
+        names.sort();
+        for name in names {
+            let path = Path::new(self.dir);
+            path.join(name);
         }
     }
 
@@ -22,6 +30,17 @@ impl SimpleLog {
         Self {
             dir: dir
         }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn load_test() {
+        let mut log = SimpleLog::new("tmp".to_string());
+        log.load();
     }
 }
 
