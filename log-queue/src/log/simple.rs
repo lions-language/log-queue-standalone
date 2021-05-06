@@ -1,4 +1,5 @@
 use std::fs;
+use std::path;
 
 struct SimpleLog {
     dir: String
@@ -19,11 +20,16 @@ impl SimpleLog {
             let dir = dir.unwrap();
             names.push(dir.file_name());
         }
-        names.sort();
-        for name in names {
-            let path = Path::new(self.dir);
-            path.join(name);
+        if names.is_empty() {
+            return
         }
+        names.sort();
+        let lastest_name = names.last().unwrap();
+        let path = path::Path::new(&self.dir);
+        path.join(lastest_name);
+        /*
+         * open file
+         * */
     }
 
     pub fn new(dir: String) -> Self {
