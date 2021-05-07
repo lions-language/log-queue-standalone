@@ -30,6 +30,10 @@ impl SimpleLog {
         /*
          * open file
          * */
+        self.open_file(path.to_path_buf());
+    }
+
+    fn open_file(&mut self, path: path::PathBuf) {
     }
 
     pub fn new(dir: String) -> Self {
