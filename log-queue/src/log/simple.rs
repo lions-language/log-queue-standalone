@@ -34,6 +34,15 @@ impl SimpleLog {
     }
 
     fn open_file(&mut self, path: path::PathBuf) {
+        let file = match fs::OpenOptions::new()
+            .create(true)
+            .write(true)
+            .append(true)
+            .open(path){
+            Ok(f) => f,
+            Err(err) => {
+            }
+        };
     }
 
     pub fn new(dir: String) -> Self {
