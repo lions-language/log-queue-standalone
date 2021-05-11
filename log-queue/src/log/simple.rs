@@ -2,7 +2,8 @@ use std::fs;
 use std::path;
 
 struct SimpleLog {
-    dir: String
+    dir: String,
+    file: Option<fs::File>
 }
 
 impl SimpleLog {
@@ -41,13 +42,22 @@ impl SimpleLog {
             .open(path){
             Ok(f) => f,
             Err(err) => {
+                panic!("open file error: {}", err);
             }
+        };
+        self.file = Some(file);
+    }
+
+    fn replace_file(&mut self, path: path::PathBuf) {
+        if let Some(f) = self.file {
+            f.close();
         };
     }
 
     pub fn new(dir: String) -> Self {
         Self {
-            dir: dir
+            dir: dir,
+            file: None
         }
     }
 }
